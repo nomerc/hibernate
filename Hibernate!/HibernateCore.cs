@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
-
+/// <summary>
+/// 
+/// </summary>
 namespace Hibernate_
 {
     class HibernateCore : DependencyObject, INotifyPropertyChanged
