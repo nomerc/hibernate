@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
-//
 namespace Hibernate_
 {
     class HibernateCore : DependencyObject, INotifyPropertyChanged
