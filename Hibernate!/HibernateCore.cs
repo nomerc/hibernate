@@ -27,6 +27,8 @@ namespace Hibernate_
 
         }
 
+        
+
         public HibernateCore()
         {
             countTimer = new DispatcherTimer();
