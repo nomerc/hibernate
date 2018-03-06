@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 /// <summary>
-/// Clean sheet
+/// New commit
 /// </summary>
 namespace Hibernate_
 {
