@@ -20,15 +20,37 @@ namespace Hibernate_
     /// </summary>
     public partial class MainWindow
     {
+        private readonly HibernateCore _core;
+
         public MainWindow()
         {
             InitializeComponent();
-            HibernateCore core = new HibernateCore
+            _core = new HibernateCore
             {
                 Minutes = 30
             };
 
-            DataContext = core;
+            DataContext = _core;
+        }
+
+        private void Inc_Time_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            _core.Minutes += 30;
+        }
+
+        private void Dec_Time_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            _core.Minutes -= 30;
+        }
+
+        private void On_Off_Btn_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On_Off_Btn_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

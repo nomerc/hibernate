@@ -14,14 +14,15 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="Dec_Time_Btn" Content="- 30m" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
+        <Button x:Name="Dec_Time_Btn" Content="- 30m" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" Click="Dec_Time_Btn_Click"
+                IsEnabled="{Binding Path=IsDecreasable, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox x:Name="Hours_TextBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" Padding="0"
                 Text ="{Binding Path=Hours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated= True}"/>
         <TextBox x:Name="Minutes_TextBox" Grid.Column="2" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="22" HorizontalContentAlignment="Center" Padding="0" 
                  Text ="{Binding Path=Minutes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated= True}"/>
-        <Button x:Name="Inc_Time_Btn" Content="+30m" Grid.Column="3" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
+        <Button x:Name="Inc_Time_Btn" Content="+30m" Grid.Column="3" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" Click="Inc_Time_Btn_Click"/>
         <ToggleButton Grid.Column="4" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center">
-            <ToggleButton x:Name="On_Off_Btn" Content="On/Off" FontSize="22"/>
+            <ToggleButton x:Name="On_Off_Btn" Content="On/Off" FontSize="22" Checked="On_Off_Btn_Checked" Unchecked="On_Off_Btn_Unchecked"/>
         </ToggleButton>
         <Label Content=":" Grid.Column="1" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="22"/>
         <Label Content="h" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" FontSize="22" Grid.Column="1"/>
