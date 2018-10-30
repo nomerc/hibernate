@@ -12,6 +12,9 @@ namespace Hibernate_
 
     class HibernateCore : DependencyObject, INotifyPropertyChanged
     {
+        enum ShutdownOptions { Shutdown, Hibernate };
+
+
         public static readonly DependencyProperty HoursProperty;
         public static readonly DependencyProperty MinutesProperty;
         public static readonly DependencyProperty IsDecreasableProperty;
@@ -19,6 +22,7 @@ namespace Hibernate_
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly DispatcherTimer _countTimer;
+        private static ShutdownOptions options = ShutdownOptions.Hibernate;
 
         static HibernateCore()
         {
@@ -34,7 +38,7 @@ namespace Hibernate_
         {
             _countTimer = new DispatcherTimer();
             _countTimer.Tick += On_Tick;
-            _countTimer.Interval = new TimeSpan(0, 0, 1);
+            _countTimer.Interval = new TimeSpan(0, 1, 0);
             _countTimer.Start();
         }
 
@@ -87,7 +91,7 @@ namespace Hibernate_
         private static void MinutesChangedCallback(DependencyObject dependencyObject,
             DependencyPropertyChangedEventArgs args)
         {
-            HibernateCore obj = (HibernateCore) dependencyObject;
+            HibernateCore obj = (HibernateCore)dependencyObject;
             if (obj.Minutes >= 60)
             {
                 obj.Hours += obj.Minutes / 60;
@@ -103,12 +107,15 @@ namespace Hibernate_
                 }
             }
 
-                obj.SetIsDecreasable();
+            obj.SetIsDecreasable();
 
             if (obj.Minutes == 0 && obj.Hours == 0)
             {
                 obj._countTimer.Stop();
-                ShutDown(); 
+                if (options == ShutdownOptions.Shutdown)
+                    ShutDown();
+                else
+                    Hibernate();
             }
         }
 
@@ -119,12 +126,6 @@ namespace Hibernate_
 
         public static void ShutDown()
         {
-
-            //// Hibernate
-            //Application.SetSuspendState(PowerState.Hibernate, true, true);
-            //// Standby
-            //Application.SetSuspendState(PowerState.Suspend, true, true);
-
             ManagementBaseObject outParameters = null;
             ManagementClass sysOS = new ManagementClass("Win32_OperatingSystem");
             sysOS.Get();
@@ -144,9 +145,13 @@ namespace Hibernate_
         }
         public static void Hibernate()
         {
-            System.Windows.Forms.Application.SetSuspendState(PowerState.Suspend, false, false);
+            System.Windows.Forms.Application.SetSuspendState(PowerState.Hibernate, false, false);
         }
 
+        public void InvertShutdownStatus()
+        {
+            options = (options == ShutdownOptions.Shutdown) ? ShutdownOptions.Hibernate : ShutdownOptions.Shutdown;
+        }
         private void SetIsDecreasable()
         {
             IsDecreasable = !(Hours == 0 && Minutes < 30);
