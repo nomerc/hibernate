@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Management;
 using System.Threading;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using System.Windows.Threading;
 
 namespace Hibernate_
@@ -33,7 +34,7 @@ namespace Hibernate_
         {
             _countTimer = new DispatcherTimer();
             _countTimer.Tick += On_Tick;
-            _countTimer.Interval = new TimeSpan(0, 1, 0);
+            _countTimer.Interval = new TimeSpan(0, 0, 1);
             _countTimer.Start();
         }
 
@@ -118,6 +119,12 @@ namespace Hibernate_
 
         public static void ShutDown()
         {
+
+            //// Hibernate
+            //Application.SetSuspendState(PowerState.Hibernate, true, true);
+            //// Standby
+            //Application.SetSuspendState(PowerState.Suspend, true, true);
+
             ManagementBaseObject outParameters = null;
             ManagementClass sysOS = new ManagementClass("Win32_OperatingSystem");
             sysOS.Get();
@@ -134,6 +141,10 @@ namespace Hibernate_
             {
                 outParameters = manObj.InvokeMethod("Win32Shutdown", inParameters, null);
             }
+        }
+        public static void Hibernate()
+        {
+            System.Windows.Forms.Application.SetSuspendState(PowerState.Suspend, false, false);
         }
 
         private void SetIsDecreasable()
